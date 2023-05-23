@@ -379,7 +379,7 @@ namespace cryptoprime
         /// <summary>Создаёт массив байтов, включающий в себя count байтов из буфера, и удаляет их с очисткой</summary>
         /// <param name="result">Массив, в который будет записан результат. Уже должен быть выделен. result != <see langword="null"/>.</param>
         /// <param name="count">Длина запрашиваемых данных</param>
-        /// <returns></returns>
+        /// <returns>Запись с полученными байтами</returns>
         public Record getBytesAndRemoveIt(Record result, nint count = -1)
         {
             if (count < 0)
@@ -396,6 +396,12 @@ namespace cryptoprime
 
             ReadBytesTo(result.array, count);
             RemoveBytes(count);
+
+            if (this.count == 0)
+            {
+                Start = 0;
+                End   = 0;
+            }
 
             return result;
         }
